@@ -28,9 +28,7 @@ jobs:
       uses: JackMcKew/pyinstaller-action-windows@main
       with:
           path: .
-    - name: Installer
     - uses: joncloud/makensis-action@v3.5
-    - name: Upload
     - uses: actions/upload-artifact@v2
       with:
         name: Camera Controller
