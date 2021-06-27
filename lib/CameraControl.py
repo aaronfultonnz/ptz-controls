@@ -2,7 +2,7 @@ from time import sleep
 from onvif import ONVIFCamera
 
 
-class CameraControl():
+class CameraControl:
 
     def __init__(self, host, port, username, password):
         self.host = host

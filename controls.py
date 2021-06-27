@@ -1,10 +1,10 @@
 import os, sys, subprocess
 import configparser
-from PySide6.QtCore import QSize, Qt
-from PySide6.QtGui import QIcon
-from PySide6.QtWidgets import QWidget, QPushButton, QLabel, QGridLayout, QApplication
+from PySide2.QtCore import QSize, Qt
+from PySide2.QtGui import QIcon
+from PySide2.QtWidgets import QWidget, QPushButton, QLabel, QGridLayout, QApplication
 from lib.CameraControl import CameraControl
-from lib.pyinstaller_helper import resource_path
+from lib.pyinstaller_helper import resource_path, user_path
 
 
 class CameraControls(QWidget):
@@ -15,42 +15,43 @@ class CameraControls(QWidget):
         self.username = 'admin'
         self.password = ''
         self.camera = None
+        self.app_name = 'Camera Control'
 
         self.zoom_speed = 50
         self.move_speed = 50
-        self.settings_filename = resource_path('settings.ini')
+        self.settings_filename = user_path(self.app_name, 'settings.ini')
 
         self.load_settings()
 
         self.setWindowTitle("Camera Control")
-        self.setWindowIcon(QIcon(resource_path('assets\\favicon.ico')))
+        self.setWindowIcon(QIcon(resource_path(os.path.join('assets', 'favicon.ico'))))
 
         self.settings_button = QPushButton()
-        self.settings_button.setIcon(QIcon(resource_path('assets\\settings.png')))
+        self.settings_button.setIcon(QIcon(resource_path(os.path.join('assets', 'settings.png'))))
         self.settings_button.setIconSize(QSize(25, 24))
 
         self.up_button = QPushButton()
-        self.up_button.setIcon(QIcon(resource_path('assets\\up.png')))
+        self.up_button.setIcon(QIcon(resource_path(os.path.join('assets', 'up.png'))))
         self.up_button.setIconSize(QSize(24, 24))
 
         self.down_button = QPushButton()
-        self.down_button.setIcon(QIcon(resource_path('assets\\down.png')))
+        self.down_button.setIcon(QIcon(resource_path(os.path.join('assets', 'down.png'))))
         self.down_button.setIconSize(QSize(24, 24))
 
         self.left_button = QPushButton()
-        self.left_button.setIcon(QIcon(resource_path('assets\\left.png')))
+        self.left_button.setIcon(QIcon(resource_path(os.path.join('assets', 'left.png'))))
         self.left_button.setIconSize(QSize(24, 24))
 
         self.right_button = QPushButton()
-        self.right_button.setIcon(QIcon(resource_path('assets\\right.png')))
+        self.right_button.setIcon(QIcon(resource_path(os.path.join('assets', 'right.png'))))
         self.right_button.setIconSize(QSize(24, 24))
 
         self.zoom_in_button = QPushButton()
-        self.zoom_in_button.setIcon(QIcon(resource_path('assets\\plus.png')))
+        self.zoom_in_button.setIcon(QIcon(resource_path(os.path.join('assets', 'plus.png'))))
         self.zoom_in_button.setIconSize(QSize(24, 24))
 
         self.zoom_out_button = QPushButton()
-        self.zoom_out_button.setIcon(QIcon(resource_path('assets\\minus.png')))
+        self.zoom_out_button.setIcon(QIcon(resource_path(os.path.join('assets', 'minus.png'))))
         self.zoom_out_button.setIconSize(QSize(24, 24))
 
         self.message = QLabel()
@@ -93,7 +94,6 @@ class CameraControls(QWidget):
         except Exception as err:
             self.message.setText('Could not connect to the camera')
             self.disable_all()
-
 
     def move_left(self):
         self.camera.move(-1 * round(self.move_speed / 100, 1), 0)
@@ -154,9 +154,10 @@ class CameraControls(QWidget):
         self.username = config.get('Camera', 'username')
         self.password = config.get('Camera', 'password')
 
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     cc = CameraControls()
     cc.show()
     cc.connect_to_camera()
-    sys.exit(app.exec())
+    sys.exit(app.exec_())
