@@ -30,10 +30,11 @@ jobs:
       uses: JackMcKew/pyinstaller-action-windows@main
       with:
           path: .
-    - name: Create nsis installer
-      uses: joncloud/makensis-action@v3.3
     - name: 'ls'
       run: ls -lah dist
+    - name: Create nsis installer
+      uses: joncloud/makensis-action@v3.3
+
       
     - uses: actions/upload-artifact@v2
       with:
