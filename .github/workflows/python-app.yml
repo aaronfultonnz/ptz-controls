@@ -30,7 +30,11 @@ jobs:
       uses: JackMcKew/pyinstaller-action-windows@main
       with:
           path: .
-    - uses: joncloud/makensis-action@v3.5
+    - name: Create nsis installer
+      uses: joncloud/makensis-action@v3.3
+    - name: 'ls'
+      run: ls -la
+      
     - uses: actions/upload-artifact@v2
       with:
         name: Camera Controller
