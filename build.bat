@@ -15,7 +15,7 @@ rem copy "dist\Camera Controller.exe" "G:\Shared drives\Z-BSL-RADARIQ-SharedFile
 
 rem RMDIR /Q/S dist
 RMDIR /Q/S build
-rm "Camera Controller.spec"
+#rm "Camera Controller.spec"
 
 
 echo Build completed.
