@@ -51,7 +51,7 @@ functionEnd
 
 section "install"
     setOutPath $INSTDIR
-    File /a /r "dist/Camera Controller/" #note back slash at the end
+    File /a /r "dist\Camera Controller\" #note back slash at the end
 
     # Uninstaller - See function un.onInit and section "uninstall" for configuration
     writeUninstaller "$INSTDIR\uninstall.exe"

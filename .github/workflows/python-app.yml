@@ -33,7 +33,7 @@ jobs:
     - name: Create nsis installer
       uses: joncloud/makensis-action@v3.3
     - name: 'ls'
-      run: ls -lah
+      run: ls -lah dist
       
     - uses: actions/upload-artifact@v2
       with:
