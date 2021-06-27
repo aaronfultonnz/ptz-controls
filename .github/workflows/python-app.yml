@@ -31,7 +31,7 @@ jobs:
       with:
           path: .
     - name: 'ls'
-      run: ls -lah dist
+      run: ls -lah dist\windows
     - name: Create nsis installer
       uses: joncloud/makensis-action@v3.3
 
