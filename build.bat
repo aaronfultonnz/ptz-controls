@@ -13,7 +13,7 @@ venv\scripts\pyinstaller --add-data assets;assets ^
 
 "C:\Program Files (x86)\NSIS\makensis.exe" install.nsi
 
-rem RMDIR /Q/S dist
+RMDIR /Q/S dist
 RMDIR /Q/S build
 rm "Camera Controller.spec"
 
