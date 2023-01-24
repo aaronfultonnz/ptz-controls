@@ -1,3 +1,2 @@
 PySide2
 onvif-zeep
-pyinstaller

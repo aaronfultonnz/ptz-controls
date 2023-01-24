@@ -2,7 +2,7 @@ import os, sys, subprocess
 import configparser
 from lib.CameraControl import CameraControl
 from lib.pyinstaller_helper import resource_path, user_path
-from tkinter import Button, PhotoImage,Label, Tk
+from tkinter import Button, PhotoImage, Label, Menu, Tk
 from onvif.exceptions import ONVIFError
 
 
@@ -21,60 +21,55 @@ class CameraControls():
         self.move_speed = 50
         self.settings_filename = user_path(self.app_name, 'settings.ini')
 
-
         root = Tk()
-        root.title("Camera Control")
-        root.geometry("250x250")
-        root.iconbitmap(resource_path(os.path.join('assets', 'favicon.ico')))
 
-        self.name = Label(root, text=self.name,anchor="center")
-        self.name.grid(row=0,column=0, columnspan=5)
+        self.menubar = Menu(root)
+        self.filemenu = Menu(self.menubar, tearoff=0)
+        self.filemenu.add_command(label="Settings", command=self.open_settings)
+        self.menubar.add_cascade(label="File", menu=self.filemenu)
 
-
-        settings_photo = PhotoImage(file=resource_path(os.path.join('assets', 'settings.png')))
-        self.settings_button = Button(root, image=settings_photo, height=24, width=24)
-        self.settings_button.bind("<ButtonPress>", self.open_settings)
-        self.settings_button.bind("<ButtonRelease>", self.open_settings)
-        self.settings_button.grid(row=1,column=0, padx=5,pady=5 ,ipadx=5,ipady=5)
+        self.name = Label(root, text=self.name, anchor="center", background='white')
+        self.name.grid(row=0, column=0, columnspan=5)
 
         up_photo = PhotoImage(file=resource_path(os.path.join('assets', 'up.png')))
-        self.up_button = Button(root, image=up_photo, height=24, width=24)
+        self.up_button = Button(root, image=up_photo, height=40, width=40, border=0, background='white')
         self.up_button.bind("<ButtonPress>", self.move_up)
-        self.up_button.bind("<ButtonRelease>", self.move_up)
-        self.up_button.grid(row=1,column=3, padx=5,pady=5 ,ipadx=5,ipady=5)
+        self.up_button.bind("<ButtonRelease>", self.stop_move)
+        self.up_button.grid(row=1, column=3, padx=5, pady=5, ipadx=5, ipady=5)
 
         down_photo = PhotoImage(file=resource_path(os.path.join('assets', 'down.png')))
-        self.down_button = Button(root, image=down_photo, height=24, width=24)
+        self.down_button = Button(root, image=down_photo, height=40, width=40, border=0, background='white')
         self.down_button.bind("<ButtonPress>", self.move_down)
-        self.down_button.bind("<ButtonRelease>", self.move_down)
-        self.down_button.grid(row=3,column=3, padx=5,pady=5 ,ipadx=5,ipady=5)
+        self.down_button.bind("<ButtonRelease>", self.stop_move)
+        self.down_button.grid(row=3, column=3, padx=5, pady=5, ipadx=5, ipady=5)
 
         left_photo = PhotoImage(file=resource_path(os.path.join('assets', 'left.png')))
-        self.left_button = Button(root, image=left_photo, height=24, width=24)
+        self.left_button = Button(root, image=left_photo, height=40, width=40, border=0, background='white')
         self.left_button.bind("<ButtonPress>", self.move_left)
-        self.left_button.bind("<ButtonRelease>", self.move_left)
-        self.left_button.grid(row=2,column=2, padx=5,pady=5 ,ipadx=5,ipady=5)
+        self.left_button.bind("<ButtonRelease>", self.stop_move)
+        self.left_button.grid(row=2, column=2, padx=5, pady=5, ipadx=5, ipady=5)
 
         right_photo = PhotoImage(file=resource_path(os.path.join('assets', 'right.png')))
-        self.right_button = Button(root, image=right_photo, height=24, width=24)
+        self.right_button = Button(root, image=right_photo, height=40, width=40, border=0, background='white')
         self.right_button.bind("<ButtonPress>", self.move_right)
         self.right_button.bind("<ButtonRelease>", self.stop_move)
-        self.right_button.grid(row=2,column=4, padx=5,pady=5 ,ipadx=5,ipady=5)
+        self.right_button.grid(row=2, column=4, padx=5, pady=5, ipadx=5, ipady=5)
 
         plus_photo = PhotoImage(file=resource_path(os.path.join('assets', 'plus.png')))
-        self.zoom_in_button = Button(root, image=plus_photo, height=24, width=24)
+        self.zoom_in_button = Button(root, image=plus_photo, height=40, width=40, border=0, background='white')
         self.zoom_in_button.bind("<ButtonPress>", self.zoom_in)
         self.zoom_in_button.bind("<ButtonRelease>", self.stop_move)
-        self.zoom_in_button.grid(row=2,column=0, padx=5,pady=5 ,ipadx=5,ipady=5)
+        self.zoom_in_button.grid(row=2, column=0, padx=5, pady=5, ipadx=5, ipady=5)
 
         minus_photo = PhotoImage(file=resource_path(os.path.join('assets', 'minus.png')))
-        self.zoom_out_button = Button(root, image=minus_photo, height=24, width=24)
+        self.zoom_out_button = Button(root, image=minus_photo, height=40, width=40, border=0, background='white')
         self.zoom_out_button.bind("<ButtonPress>", self.zoom_out)
         self.zoom_out_button.bind("<ButtonRelease>", self.stop_move)
-        self.zoom_out_button.grid(row=3,column=0, padx=5,pady=5 ,ipadx=5,ipady=5)
+        self.zoom_out_button.grid(row=3, column=0, padx=5, pady=5, ipadx=5, ipady=5)
 
-        self.message = Label(root, text="",anchor="center")
-        self.message.grid(row=4,column=0, columnspan=5)
+        self.message = Label(root, text="", anchor="center", background='white')
+        self.message.grid(row=4, column=0, columnspan=5)
+
 
         try:
             self.load_settings()
@@ -87,6 +82,11 @@ class CameraControls():
             self.message.configure(text=f'Error: {err}')
             self.disable_all()
 
+        root.title("Camera Control")
+        root.geometry("250x250")
+        root.configure(background='white')
+        root.iconbitmap(resource_path(os.path.join('assets', 'favicon.ico')))
+        root.config(menu=self.menubar)
         root.mainloop()
 
     def connect_to_camera(self):
@@ -135,7 +135,7 @@ class CameraControls():
         parser.write(config_file)
         config_file.close()
 
-    def open_settings(self, evt):
+    def open_settings(self):
         if sys.platform == "win32":
             os.startfile(self.settings_filename)
         else:
