@@ -29,9 +29,11 @@ jobs:
       with:
         python-version: '3.10'
     - name: Install python dependencies
+
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+
     - name: Build Pyinstaller from source
       if: matrix.os == 'windows-latest' || matrix.os == 'ubuntu-latest'
       run : |
@@ -49,15 +51,14 @@ jobs:
         cd ..
         python setup.py install
         cd ..
+
     - name: Build with pyinstaller for ${{matrix.TARGET}}
       if: matrix.os == 'windows-latest' || matrix.os == 'ubuntu-latest'
       run: ${{matrix.CMD_BUILD}}
+
     - name: Build with py2app for Mac
       if: matrix.os == 'macos-latest'
       run: ${{matrix.CMD_BUILD}}
-    - name: List 1
-      if: matrix.os == 'ubuntu-latest'
-      run: ls "dist/RadarIQ Controller" # dist/RadarIQ Controller.app
 
     - name: Create installer
       if: matrix.os == 'windows-latest'
@@ -65,10 +66,10 @@ jobs:
       with:
         arguments: ""
         script-file: install.nsi
+        
     - name: List 2
       run:  |
-        ls
-        ls dist
+        ls -la dist
 
     - name: Upload binaries to release
       uses: svenstaro/upload-release-action@v2
