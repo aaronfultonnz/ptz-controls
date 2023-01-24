@@ -76,14 +76,14 @@ class CameraControls():
             self.connect_to_camera()
 
         except ONVIFError:
-            self.message.configure(text=f'Error: Cannot connect to {self.name}')
+            self.message.configure(text=f'Error: Cannot connect to {self.name}\n Please check File > Settings')
             self.disable_all()
         except Exception as err:
             self.message.configure(text=f'Error: {err}')
             self.disable_all()
 
         root.title("Camera Control")
-        root.geometry("250x250")
+        root.geometry("250x260")
         root.configure(background='white')
         root.iconbitmap(resource_path(os.path.join('assets', 'favicon.ico')))
         root.config(menu=self.menubar)
@@ -139,8 +139,7 @@ class CameraControls():
         if sys.platform == "win32":
             os.startfile(self.settings_filename)
         else:
-            opener = "open" if sys.platform == "darwin" else "xdg-open"
-            subprocess.call([opener, self.settings_filename])
+            subprocess.call(["open", "-a", "TextEdit", self.settings_filename])
 
     def load_settings(self):
         if not os.path.isfile(self.settings_filename):

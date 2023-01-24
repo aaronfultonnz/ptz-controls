@@ -66,7 +66,7 @@ jobs:
 
     - name: Package with dmgbuild for Mac
       if: matrix.os == 'macos-latest'
-      run: dmgbuild -s dmg_settings.py "Camera Controller" "dist\CameraController.dmg"
+      run: dmgbuild -s dmg_settings.py "Camera Controller" "dist/CameraController.dmg"
 
     - name: Create installer
       if: matrix.os == 'windows-latest'
