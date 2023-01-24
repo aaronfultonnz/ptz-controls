@@ -66,7 +66,7 @@ jobs:
 
     - name: Test Build with for Mac
       if: matrix.os == 'macos-latest'
-      run:  ./${{ matrix.ASSET_NAME }}
+      run:  ./dist/CameraController.app/Contents/MacOS/CameraController
 
     - name: Create installer
       if: matrix.os == 'windows-latest'
