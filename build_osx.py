@@ -19,6 +19,7 @@ DATA_FILES = tree('DATA_FILES_DIR') + tree('DATA_FILE_DIR2')
 OPTIONS = {'argv_emulation': False,
            'strip': True,
            'iconfile': 'assets/AppIcon.icns',
+           'packages':[],
            'includes': []}
 
 setup(

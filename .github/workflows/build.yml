@@ -31,7 +31,7 @@ jobs:
 
     - name: Install mac dependencies
       if: matrix.os == 'macos-latest'
-      run: STATIC_DEPS=true sudo pip install lxml
+      run: STATIC_DEPS=true pip install lxml setuptools
 
     - name: Install python dependencies
       run: |
@@ -63,6 +63,10 @@ jobs:
     - name: Build with py2app for Mac
       if: matrix.os == 'macos-latest'
       run: ${{matrix.CMD_BUILD}}
+
+    - name: Test Build with for Mac
+      if: matrix.os == 'macos-latest'
+      run:  "${{ matrix.ARTIFACT_NAME }}"
 
     - name: Create installer
       if: matrix.os == 'windows-latest'
