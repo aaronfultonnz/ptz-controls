@@ -17,7 +17,7 @@ jobs:
             ASSET_NAME: "dist/Camera Controller.app"
           - os: windows-latest
             TARGET: windows
-            CMD_BUILD: pyinstaller --add-data "assets;assets" --add-data "wsdl;wsdl" --icon "assets\favicon.ico" --name "Camera Controller.exe" --noconsole --windowed --log-level DEBUG controls.py
+            CMD_BUILD: pyinstaller --add-data "assets;assets" --add-data "wsdl;wsdl" --icon "assets\favicon.ico" --name "Camera Controller" --noconsole --windowed --log-level DEBUG controls.py
             ARTIFACT_NAME: Camera-Controller-Windows-vX.exe
             #ARTIFACT_NAME: Camera-Controller-Windows-v${{ github.ref }}.exe
             ASSET_NAME: "dist/Camera Controller.exe"
