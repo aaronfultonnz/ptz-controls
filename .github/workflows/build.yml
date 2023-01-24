@@ -62,7 +62,7 @@ jobs:
 
     - name: Build with py2app for Mac
       if: matrix.os == 'macos-latest'
-      run: pthon build_osx.py py2app
+      run: python build_osx.py py2app
 
     - name: Package with dmgbuild for Mac
       if: matrix.os == 'macos-latest'
