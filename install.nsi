@@ -26,7 +26,7 @@ BrandingText "${COMPANYNAME}"
 # This will be in the installer/uninstaller's title bar
 Name "${COMPANYNAME} - ${APPNAME}"
 Icon "assets\favicon.ico"
-outFile "dist\Camera Control.exe"
+outFile "dist\Camera Controller.exe"
 
 !include LogicLib.nsh
 
