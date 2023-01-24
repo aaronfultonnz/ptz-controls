@@ -77,7 +77,7 @@ jobs:
 
     - name: List 2
       run:  |
-        ls -la dist
+        ls dist
 
     - name: Upload binaries to release
       uses: svenstaro/upload-release-action@v2
