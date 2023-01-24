@@ -1,5 +1,5 @@
 """
-This is an example of py2app setup.py script for freezing your pyside2 application
+This is an example of py2app setup.py script for freezing your application
 
 Usage:
     python setup.py py2app
@@ -11,15 +11,15 @@ from setuptools import setup
 
 def tree(src):
     return [(root, map(lambda f: os.path.join(root, f), files))
-        for (root, dirs, files) in os.walk(os.path.normpath(src))]
+            for (root, dirs, files) in os.walk(os.path.normpath(src))]
 
 
 ENTRY_POINT = ['controls.py']
-DATA_FILES = tree('DATA_FILES_DIR') + tree('DATA_FILE_DIR2')
+DATA_FILES = tree('assets') + tree('wsdl')
 OPTIONS = {'argv_emulation': False,
            'strip': True,
            'iconfile': 'assets/AppIcon.icns',
-           'packages':[],
+           'packages': [],
            'includes': []}
 
 setup(
