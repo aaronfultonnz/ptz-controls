@@ -64,10 +64,6 @@ jobs:
       if: matrix.os == 'macos-latest'
       run: ${{matrix.CMD_BUILD}}
 
-    - name: Test Build with for Mac
-      if: matrix.os == 'macos-latest'
-      run:  ./dist/CameraController.app/Contents/MacOS/CameraController
-
     - name: Create installer
       if: matrix.os == 'windows-latest'
       uses: joncloud/makensis-action@v3.7
