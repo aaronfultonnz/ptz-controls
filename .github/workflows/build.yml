@@ -28,10 +28,11 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
-    - name: Install python dependencies
 
+    - name: Install python dependencies
       run: |
         python -m pip install --upgrade pip
+        pip install lxml==4.2.5
         pip install -r requirements.txt
 
     - name: Build Pyinstaller from source
@@ -66,7 +67,7 @@ jobs:
       with:
         arguments: ""
         script-file: install.nsi
-        
+
     - name: List 2
       run:  |
         ls -la dist
