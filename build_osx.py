@@ -23,7 +23,7 @@ OPTIONS = {'argv_emulation': False,
            'includes': []}
 
 setup(
-    name="Camera Controller",
+    name="CameraController",
     app=ENTRY_POINT,
     data_files=DATA_FILES,
     options={'py2app': OPTIONS},

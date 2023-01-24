@@ -14,7 +14,7 @@ jobs:
             CMD_BUILD: pip install py2app && python build_osx.py py2app
             ARTIFACT_NAME: Camera-Controller-MacOS-vX.app
             #ARTIFACT_NAME: Camera-Controller-MacOS-v${{ github.ref }}.app
-            ASSET_NAME: "dist/Camera Controller.app"
+            ASSET_NAME: "dist/CameraController.app"
           - os: windows-latest
             TARGET: windows
             CMD_BUILD: pyinstaller --add-data "assets;assets" --add-data "wsdl;wsdl" --icon "assets\favicon.ico" --name "Camera Controller" --noconsole --windowed --log-level DEBUG controls.py
@@ -66,7 +66,7 @@ jobs:
 
     - name: Test Build with for Mac
       if: matrix.os == 'macos-latest'
-      run:  "${{ matrix.ASSET_NAME }}"
+      run:  ./${{ matrix.ASSET_NAME }}
 
     - name: Create installer
       if: matrix.os == 'windows-latest'
