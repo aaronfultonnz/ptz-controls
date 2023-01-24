@@ -66,7 +66,7 @@ jobs:
 
     - name: Test Build with for Mac
       if: matrix.os == 'macos-latest'
-      run:  "${{ matrix.ARTIFACT_NAME }}"
+      run:  "${{ matrix.ASSET_NAME }}"
 
     - name: Create installer
       if: matrix.os == 'windows-latest'
