@@ -13,21 +13,21 @@ jobs:
       matrix:
         include:
           - os: macos-latest
-            TARGET: macos
+            TARGET: macos-13
             CMD_BUILD: echo
             #ARTIFACT_NAME: Camera-Controller-MacOS-vX.dmg
-            ARTIFACT_NAME: Camera-Controller-MacOS-v${{ github.ref }}.dmg
+            ARTIFACT_NAME: Camera-Controller-MacOS-v${{ github.ref_name }}.dmg
             ASSET_NAME: "dist/CameraController.dmg"
           - os: windows-latest
             TARGET: windows
             CMD_BUILD: pyinstaller --add-data "assets;assets" --add-data "wsdl;wsdl" --icon "assets\favicon.ico" --name "Camera Controller" --noconsole --windowed --log-level DEBUG controls.py
             #ARTIFACT_NAME: Camera-Controller-Windows-vX.exe
-            ARTIFACT_NAME: Camera-Controller-Windows-v${{ github.ref }}.exe
+            ARTIFACT_NAME: Camera-Controller-Windows-v${{ github.ref_name }}.exe
             ASSET_NAME: "dist/Camera Controller.exe"
 
     steps:
     - uses: actions/checkout@v3
-      
+
     - name: Set up Python 3.10
       uses: actions/setup-python@v4
       with:
@@ -48,7 +48,7 @@ jobs:
         echo Cloning official pyinstaller repo
         git clone https://github.com/pyinstaller/pyinstaller
         cd pyinstaller
-        git checkout v5.2
+        git checkout v5.7
         cd bootloader
   
         echo installing dependency
